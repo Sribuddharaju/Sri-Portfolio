@@ -14,15 +14,22 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+# Belt-and-suspenders: force any transitively-pinned Node 20 actions
+# (e.g. actions/upload-artifact embedded inside upload-pages-artifact)
+# to run on Node 24. Becomes the default on June 2, 2026.
+# https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: npm
@@ -56,4 +63,4 @@ jobs:
     steps:
       - name: Deploy
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
