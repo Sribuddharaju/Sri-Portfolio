@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0f1f" />
+    <meta name="color-scheme" content="dark light" />
+
+    <title>Sri Buddharaju — Senior Salesforce Developer & Technical Lead</title>
+    <meta
+      name="description"
+      content="Salesforce Technical Lead and Architect with 8+ years delivering enterprise Sales Cloud, Service Cloud, and AI-powered solutions for Fortune 100 companies."
+    />
+    <meta name="author" content="Sri Ramachandra Raju Buddharaju" />
+    <meta
+      name="keywords"
+      content="Salesforce Developer, Salesforce Architect, Sales Cloud, Service Cloud, Apex, LWC, AI Specialist, Cisco, Hyderabad, Portfolio"
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Sri Buddharaju — Salesforce Technical Lead" />
+    <meta
+      property="og:description"
+      content="10x certified Salesforce Architect specializing in Sales Cloud, Service Cloud, and AI integrations."
+    />
+    <meta property="og:image" content="/og-image.svg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sri Buddharaju — Salesforce Technical Lead" />
+    <meta
+      name="twitter:description"
+      content="10x certified Salesforce Architect specializing in Sales Cloud, Service Cloud, and AI integrations."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      // Apply theme before paint to avoid flash
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var prefersLight =
+            window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: light)').matches;
+          var theme = stored || (prefersLight ? 'light' : 'dark');
+          if (theme === 'light') {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
