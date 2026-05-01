@@ -69,10 +69,13 @@
 
 @layer components {
   .text-gradient {
-    background: linear-gradient(120deg, #60b1fa 0%, #22d3ee 50%, #a78bfa 100%);
-    -webkit-background-clip: text;
+    background-image: linear-gradient(120deg, #60b1fa 0%, #22d3ee 50%, #a78bfa 100%);
     background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
     -webkit-text-fill-color: transparent;
+    /* Avoid clipping descenders on letters like g, y, j */
+    padding-bottom: 0.06em;
   }
 
   .glass {

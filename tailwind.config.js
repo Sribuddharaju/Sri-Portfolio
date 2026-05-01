@@ -90,12 +90,43 @@ export default {
           '0%': { transform: 'translateX(0%)' },
           '100%': { transform: 'translateX(-50%)' },
         },
+        'spin-slow': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        'spin-reverse': {
+          '0%': { transform: 'rotate(360deg)' },
+          '100%': { transform: 'rotate(0deg)' },
+        },
+        'orbit-glow': {
+          '0%, 100%': { opacity: '0.6', filter: 'blur(0px)' },
+          '50%': { opacity: '1', filter: 'blur(2px)' },
+        },
+        'flow-dash': {
+          '0%': { strokeDashoffset: '40' },
+          '100%': { strokeDashoffset: '0' },
+        },
+        'node-pulse': {
+          '0%, 100%': { opacity: '0.55', transform: 'scale(1)' },
+          '50%': { opacity: '1', transform: 'scale(1.4)' },
+        },
+        'shimmer': {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
       },
       animation: {
         'fade-up': 'fade-up 0.6s ease-out both',
         'gradient-pan': 'gradient-pan 8s ease infinite',
         'pulse-soft': 'pulse-soft 3s ease-in-out infinite',
         'marquee': 'marquee 35s linear infinite',
+        'spin-slow': 'spin-slow 28s linear infinite',
+        'spin-reverse': 'spin-reverse 36s linear infinite',
+        'spin-slower': 'spin-slow 60s linear infinite',
+        'orbit-glow': 'orbit-glow 3.5s ease-in-out infinite',
+        'flow-dash': 'flow-dash 1.6s linear infinite',
+        'node-pulse': 'node-pulse 2.4s ease-in-out infinite',
+        'shimmer': 'shimmer 3s linear infinite',
       },
     },
   },

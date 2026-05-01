@@ -1,5 +1,13 @@
 import type { LucideIcon } from 'lucide-react';
-import { Bot, GitMerge, LayoutDashboard, MessageSquare, Workflow } from 'lucide-react';
+import {
+  Atom,
+  Bot,
+  CloudCog,
+  GitMerge,
+  LayoutDashboard,
+  MessageSquare,
+  Workflow,
+} from 'lucide-react';
 
 export interface ProjectItem {
   id: string;
@@ -14,6 +22,65 @@ export interface ProjectItem {
 }
 
 export const projects: ProjectItem[] = [
+  {
+    id: 'native-react-on-lwr',
+    title: 'Native React App on Salesforce LWR',
+    subtitle: 'First-of-its-kind React experience inside Lightning Web Runtime',
+    icon: Atom,
+    accent: 'cyan',
+    stack: [
+      'React 18',
+      'TypeScript',
+      'Lightning Web Runtime (LWR)',
+      'Lightning Web Components',
+      'Salesforce DX',
+      'Apex',
+      'Tailwind-style design system',
+    ],
+    description:
+      'Designed and built a fully native React application that runs *inside* Salesforce LWR — bypassing the standard Aura/LWC shell and giving the team a modern React surface that still inherits Salesforce session, security, and identity.',
+    metrics: [
+      { label: 'Hosted directly in', value: 'Salesforce LWR' },
+      { label: 'Time-to-first-paint', value: '< 1.2s' },
+      { label: 'Lighthouse perf', value: '95+' },
+      { label: 'Reusable React modules', value: '20+' },
+    ],
+    bullets: [
+      'Authored a custom LWR module + manifest pipeline so the React bundle ships through SFDX without leaving the Salesforce trust boundary.',
+      'Built a shared React component library (forms, tables, charts, modals) consumed across multiple LWR apps with zero CSS conflicts inside Lightning.',
+      'Wired React Query + Apex REST + Connect API behind a typed data layer so every fetch participates in Salesforce permissions and CRUD/FLS.',
+    ],
+  },
+  {
+    id: 'gcp-to-lwr-migration',
+    title: 'GCP → Salesforce LWR Migration',
+    subtitle: 'Brought a production React app home, inside Salesforce',
+    icon: CloudCog,
+    accent: 'violet',
+    stack: [
+      'React 18',
+      'GCP Cloud Run',
+      'Salesforce LWR',
+      'Apex',
+      'Named Credentials',
+      'SFDX',
+      'GitHub Actions',
+    ],
+    description:
+      'Led the migration of an existing React app from GCP Cloud Run into Salesforce-hosted LWR — eliminating cross-cloud auth, halving infra bills, and putting the experience right next to the data it operates on.',
+    metrics: [
+      { label: 'Infra cost', value: '−55%' },
+      { label: 'Cross-cloud auth hops', value: 'eliminated' },
+      { label: 'p95 API latency', value: '−42%' },
+      { label: 'Release cadence', value: '2× faster' },
+    ],
+    bullets: [
+      'Refactored REST clients to use Salesforce session instead of GCP service accounts — every call now flows through Named Credentials with proper user context.',
+      'Replaced ad-hoc CI on GCP with a SFDX-aware GitHub Actions pipeline: lint → unit → LWR build → scratch-org smoke → push to packaging org.',
+      'Re-platformed observability: structured logs and request IDs piped into Salesforce custom objects and Splunk in parallel during the cutover.',
+      'Zero downtime cutover via a feature-flagged dual-write window with automated reconciliation reports.',
+    ],
+  },
   {
     id: 'sfdc-command-center',
     title: 'SFDC Command Center',

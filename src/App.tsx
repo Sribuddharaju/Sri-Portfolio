@@ -3,6 +3,7 @@ import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { About } from '@/sections/About';
+import { AIShowcase } from '@/sections/AIShowcase';
 import { Certifications } from '@/sections/Certifications';
 import { Contact } from '@/sections/Contact';
 import { Experience } from '@/sections/Experience';
@@ -28,6 +29,7 @@ export default function App() {
         <Skills />
         <Experience />
         <Projects />
+        <AIShowcase />
         <Certifications />
         <Contact />
       </main>
