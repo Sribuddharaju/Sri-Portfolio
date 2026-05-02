@@ -82,24 +82,24 @@ export function Navbar() {
             ))}
           </ul>
 
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             <a
               href={profile.links.github}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="hidden h-10 w-10 items-center justify-center rounded-xl border border-ink-200 bg-white/70 text-ink-700 transition-colors hover:border-brand-400 hover:text-brand-700 dark:border-ink-700 dark:bg-ink-900/60 dark:text-ink-200 dark:hover:border-brand-400 dark:hover:text-brand-300 focus-ring sm:inline-flex"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-ink-200 bg-white/70 text-ink-700 transition-colors hover:border-brand-400 hover:text-brand-700 dark:border-ink-700 dark:bg-ink-900/60 dark:text-ink-200 dark:hover:border-brand-400 dark:hover:text-brand-300 focus-ring sm:h-10 sm:w-10"
             >
-              <Github className="h-5 w-5" />
+              <Github className="h-4 w-4 sm:h-5 sm:w-5" />
             </a>
             <a
               href={profile.links.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="hidden h-10 w-10 items-center justify-center rounded-xl border border-ink-200 bg-white/70 text-ink-700 transition-colors hover:border-brand-400 hover:text-brand-700 dark:border-ink-700 dark:bg-ink-900/60 dark:text-ink-200 dark:hover:border-brand-400 dark:hover:text-brand-300 focus-ring sm:inline-flex"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-ink-200 bg-white/70 text-ink-700 transition-colors hover:border-brand-400 hover:text-brand-700 dark:border-ink-700 dark:bg-ink-900/60 dark:text-ink-200 dark:hover:border-brand-400 dark:hover:text-brand-300 focus-ring sm:h-10 sm:w-10"
             >
-              <Linkedin className="h-5 w-5" />
+              <Linkedin className="h-4 w-4 sm:h-5 sm:w-5" />
             </a>
             <ThemeToggle />
             <Button
@@ -112,12 +112,12 @@ export function Navbar() {
             </Button>
             <button
               type="button"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-ink-200 bg-white/70 text-ink-700 transition-colors hover:border-brand-400 hover:text-brand-700 dark:border-ink-700 dark:bg-ink-900/60 dark:text-ink-200 dark:hover:border-brand-400 dark:hover:text-brand-300 focus-ring lg:hidden"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-ink-200 bg-white/70 text-ink-700 transition-colors hover:border-brand-400 hover:text-brand-700 dark:border-ink-700 dark:bg-ink-900/60 dark:text-ink-200 dark:hover:border-brand-400 dark:hover:text-brand-300 focus-ring sm:h-10 sm:w-10 lg:hidden"
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}
             >
-              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {mobileOpen ? <X className="h-4 w-4 sm:h-5 sm:w-5" /> : <Menu className="h-4 w-4 sm:h-5 sm:w-5" />}
             </button>
           </div>
         </nav>
