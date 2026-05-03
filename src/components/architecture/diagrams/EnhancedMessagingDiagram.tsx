@@ -112,7 +112,7 @@ export function EnhancedMessagingDiagram() {
       <DEdgeLabel x={245} y={158} text="msg" accent="cyan" />
       <DEdgeLabel x={400} y={252} text="EN" accent="violet" />
       <DEdgeLabel x={563} y={258} text="route" accent="emerald" />
-      <DEdgeLabel x={400} y={420} text="reply" accent="violet" />
+      <DEdgeLabel x={400} y={433} text="reply" accent="violet" />
     </DiagramFrame>
   );
 }

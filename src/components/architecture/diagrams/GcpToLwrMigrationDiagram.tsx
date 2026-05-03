@@ -53,7 +53,7 @@ export function GcpToLwrMigrationDiagram() {
         w={130}
         h={56}
         label="GCP IAM"
-        sublabel="OAuth + SA key"
+        sublabel="OAuth + SA"
         accent="pink"
         iconPath={ICONS.shield}
       />
@@ -84,7 +84,7 @@ export function GcpToLwrMigrationDiagram() {
         w={130}
         h={56}
         label="Salesforce"
-        sublabel="Connected App"
+        sublabel="OAuth app"
         accent="brand"
         iconPath={ICONS.cog}
       />
@@ -168,8 +168,7 @@ export function GcpToLwrMigrationDiagram() {
         )}
       </g>
 
-      {/* 4. Labels */}
-      <DEdgeLabel x={195} y={306} text="x-cloud" accent="pink" />
+      {/* 4. Labels (kept minimal — node labels already convey intent) */}
       <DEdgeLabel x={400} y={228} text="MIGRATE" accent="cyan" />
 
       {/* Wins callout */}

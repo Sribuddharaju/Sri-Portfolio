@@ -355,9 +355,11 @@ interface EdgeLabelProps {
  * edge. The badge auto-widens to fit short strings (3–14 chars).
  */
 export function DEdgeLabel({ x, y, text, accent = 'brand', pad }: EdgeLabelProps) {
-  // Approximate the rendered width of the JetBrains Mono 10px text.
-  const w = pad ?? Math.max(34, text.length * 6.4 + 16);
-  const h = 20;
+  // Tight pill-badge sizing. JetBrains Mono at 10px renders at ~5.6 px
+  // per glyph; the +8 budget covers the rounded end caps. Use the `pad`
+  // override only when you genuinely need a fatter badge.
+  const w = pad ?? Math.max(24, text.length * 5.6 + 8);
+  const h = 16;
   return (
     <g>
       <rect
@@ -366,18 +368,18 @@ export function DEdgeLabel({ x, y, text, accent = 'brand', pad }: EdgeLabelProps
         width={w}
         height={h}
         rx={h / 2}
-        fill="rgba(6,9,26,0.95)"
+        fill="rgba(6,9,26,0.96)"
         stroke={ACCENT_FROM[accent]}
-        strokeOpacity={0.55}
+        strokeOpacity={0.65}
         strokeWidth={1}
       />
       <text
         x={x}
-        y={y + 1}
+        y={y + 0.5}
         textAnchor="middle"
         dominantBaseline="middle"
         fontFamily="JetBrains Mono, ui-monospace, monospace"
-        fontSize={10}
+        fontSize={9.5}
         fill="#e5edff"
       >
         {text}

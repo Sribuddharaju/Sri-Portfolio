@@ -146,7 +146,6 @@ export function CommandCenterDiagram() {
 
       {/* 4. Labels — placed in clear zones between boxes */}
       <DEdgeLabel x={310} y={112} text="story" accent="cyan" />
-      <DEdgeLabel x={597} y={170} text="metadata" accent="violet" />
       <DEdgeLabel x={598} y={245} text="prompt" accent="violet" />
       <DEdgeLabel x={310} y={355} text="run e2e" accent="emerald" />
       <DEdgeLabel x={150} y={268} text="report" accent="emerald" />

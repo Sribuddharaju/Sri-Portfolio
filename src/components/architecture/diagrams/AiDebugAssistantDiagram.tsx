@@ -44,10 +44,11 @@ export function AiDebugAssistantDiagram() {
       <DEdge d="M580 318 C 605 318, 615 277, 630 277" accent="violet" />
 
       {/* Response loop: Circuit LLM back to Agent (root cause).
-          Curve goes well above the Salesforce-org lane and lands at the
-          TOP edge of the Agent / Developer node. */}
+          Curve apex sits at y≈90 — between the lane title (y=58) and
+          the Agent / Developer card (y=90). Lands at the TOP edge of
+          the Agent card so the arrowhead is never inside the box. */}
       <DEdge
-        d="M700 150 C 700 60, 300 50, 175 90"
+        d="M620 195 C 400 95, 280 95, 175 90"
         accent="violet"
         speed="slow"
       />
@@ -141,7 +142,7 @@ export function AiDebugAssistantDiagram() {
       <DEdgeLabel x={335} y={217} text="logs" accent="emerald" />
       <DEdgeLabel x={605} y={170} text="prompt" accent="violet" />
       <DEdgeLabel x={605} y={300} text="image" accent="violet" />
-      <DEdgeLabel x={420} y={50} text="root cause" accent="violet" />
+      <DEdgeLabel x={400} y={78} text="root cause" accent="violet" />
 
       {/* Step numbers (also on top) */}
       <DCaption text="1" x={45} y={80} fill="#3b8ff6" fontSize={11} />

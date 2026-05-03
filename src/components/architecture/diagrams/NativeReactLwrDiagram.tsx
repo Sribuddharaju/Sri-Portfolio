@@ -1,4 +1,4 @@
-import { DCaption, DEdge, DEdgeLabel, DLane, DNode, DiagramFrame, ICONS } from '../primitives';
+import { DCaption, DEdge, DLane, DNode, DiagramFrame, ICONS } from '../primitives';
 
 /**
  * Native React app shipped through Salesforce LWR.
@@ -136,10 +136,8 @@ export function NativeReactLwrDiagram() {
         iconPath={ICONS.shield}
       />
 
-      {/* 4. Labels */}
-      <DEdgeLabel x={400} y={60} text="deploy" accent="cyan" />
-
-      {/* Step indicators */}
+      {/* 4. Step indicators (no edge labels — the column-to-column curve
+          and per-row arrows are self-explanatory). */}
       <DCaption text="01" x={50} y={70} fill="#22d3ee" fontSize={10} />
       <DCaption text="02" x={50} y={160} fill="#22d3ee" fontSize={10} />
       <DCaption text="03" x={50} y={250} fill="#22d3ee" fontSize={10} />
