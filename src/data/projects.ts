@@ -53,12 +53,13 @@ export const projects: ProjectItem[] = [
   },
   {
     id: 'gcp-to-lwr-migration',
-    title: 'GCP → Salesforce LWR Migration',
-    subtitle: 'Brought a production React app home, inside Salesforce',
+    title: 'Command Center: GCP → Salesforce LWR',
+    subtitle: 'Brought our flagship AI sprint platform home, inside Salesforce',
     icon: CloudCog,
     accent: 'violet',
     stack: [
       'React 18',
+      'Next.js → LWR',
       'GCP Cloud Run',
       'Salesforce LWR',
       'Apex',
@@ -67,7 +68,7 @@ export const projects: ProjectItem[] = [
       'GitHub Actions',
     ],
     description:
-      'Led the migration of an existing React app from GCP Cloud Run into Salesforce-hosted LWR — eliminating cross-cloud auth, halving infra bills, and putting the experience right next to the data it operates on.',
+      'Led the migration of the SFDC Command Center from GCP Cloud Run into Salesforce-hosted LWR — eliminating cross-cloud auth, halving infra bills, and putting the experience right next to the data and users it operates on.',
     metrics: [
       { label: 'Infra cost', value: '−55%' },
       { label: 'Cross-cloud auth hops', value: 'eliminated' },
@@ -78,19 +79,19 @@ export const projects: ProjectItem[] = [
       'Refactored REST clients to use Salesforce session instead of GCP service accounts — every call now flows through Named Credentials with proper user context.',
       'Replaced ad-hoc CI on GCP with a SFDX-aware GitHub Actions pipeline: lint → unit → LWR build → scratch-org smoke → push to packaging org.',
       'Re-platformed observability: structured logs and request IDs piped into Salesforce custom objects and Splunk in parallel during the cutover.',
-      'Zero downtime cutover via a feature-flagged dual-write window with automated reconciliation reports.',
+      'Zero-downtime cutover via a feature-flagged dual-write window with automated reconciliation reports.',
     ],
   },
   {
     id: 'sfdc-command-center',
     title: 'SFDC Command Center',
-    subtitle: 'AI-Powered Sprint Execution & Org Intelligence',
+    subtitle: 'AI-Powered Sprint Execution & Org Intelligence (now native to Salesforce LWR)',
     icon: LayoutDashboard,
     accent: 'brand',
     stack: [
-      'Next.js 14',
-      'TypeScript',
       'React 18',
+      'TypeScript',
+      'Salesforce LWR',
       'Tailwind',
       'jsforce',
       'Firestore',
@@ -99,7 +100,7 @@ export const projects: ProjectItem[] = [
       'Cisco Circuit LLM',
     ],
     description:
-      'Full-stack sprint execution platform integrating User Stories with AI-powered solution generation, dual-strategy code search, and an Org Explorer over the Tooling API.',
+      'Full-stack sprint execution platform integrating User Stories with AI-powered solution generation, dual-strategy code search, and an Org Explorer over the Tooling API. Originally launched on GCP Cloud Run; now runs natively inside Salesforce LWR.',
     metrics: [
       { label: 'Story-to-code cycle time', value: '−40%' },
       { label: 'Metadata components indexed', value: '18K+' },
