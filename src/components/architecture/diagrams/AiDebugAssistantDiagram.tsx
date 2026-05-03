@@ -1,11 +1,13 @@
-import { DCaption, DEdge, DLane, DNode, DiagramFrame, ICONS } from '../primitives';
+import { DCaption, DEdge, DEdgeLabel, DLane, DNode, DiagramFrame, ICONS } from '../primitives';
 
 /**
  * AI Debug Assistant — closed-loop diagram.
  *
- * The agent triggers a request from the LWC, the Apex bridge ships logs +
- * screenshots through Cisco Circuit LLM (OAuth2), and a structured
- * root-cause analysis flows back into the same panel.
+ * Layer order (renders bottom → top):
+ *   1. Lanes
+ *   2. Edges (lines + arrows)
+ *   3. Nodes (boxes mask any line crossing)
+ *   4. Edge labels (always on top, placed in clear zones between boxes)
  */
 export function AiDebugAssistantDiagram() {
   return (
@@ -20,11 +22,37 @@ export function AiDebugAssistantDiagram() {
         </p>
       }
     >
+      {/* 1. Lanes */}
       <DLane x={20} y={40} w={310} h={420} title="Salesforce org" accent="brand" />
       <DLane x={350} y={40} w={250} h={420} title="Bridge / Apex" accent="emerald" />
       <DLane x={620} y={40} w={160} h={420} title="Cisco Circuit LLM" accent="violet" />
 
-      {/* Salesforce side */}
+      {/* 2. Edges (under nodes) */}
+      {/* Vertical inside Salesforce lane */}
+      <DEdge d="M175 154 L 175 185" accent="brand" speed="fast" />
+      <DEdge d="M175 249 L 175 280" accent="brand" />
+      <DEdge d="M175 344 L 175 375" accent="emerald" speed="fast" />
+
+      {/* LWC -> Apex Bridge */}
+      <DEdge d="M300 217 L 370 217" accent="emerald" />
+      {/* Tooling API -> Smart chunker */}
+      <DEdge d="M300 312 C 330 312, 350 312, 370 318" accent="emerald" />
+
+      {/* Apex Bridge -> Circuit LLM (prompt) */}
+      <DEdge d="M580 200 C 605 200, 615 185, 630 185" accent="violet" speed="fast" />
+      {/* Smart chunker -> Vision endpoint (image) */}
+      <DEdge d="M580 318 C 605 318, 615 277, 630 277" accent="violet" />
+
+      {/* Response loop: Circuit LLM back to Agent (root cause).
+          Curve goes well above the Salesforce-org lane and lands at the
+          TOP edge of the Agent / Developer node. */}
+      <DEdge
+        d="M700 150 C 700 60, 300 50, 175 90"
+        accent="violet"
+        speed="slow"
+      />
+
+      {/* 3. Nodes (on top of edges) */}
       <DNode
         x={50}
         y={90}
@@ -66,15 +94,13 @@ export function AiDebugAssistantDiagram() {
         accent="emerald"
         iconPath={ICONS.shield}
       />
-
-      {/* Apex bridge */}
       <DNode
         x={370}
         y={185}
         w={210}
         h={70}
         label="Apex Bridge"
-        sublabel="chunker · OAuth2 · audit"
+        sublabel="chunker · OAuth2"
         accent="emerald"
         iconPath={ICONS.cog}
         pulse
@@ -89,8 +115,6 @@ export function AiDebugAssistantDiagram() {
         accent="emerald"
         iconPath={ICONS.layers}
       />
-
-      {/* LLM */}
       <DNode
         x={630}
         y={150}
@@ -107,34 +131,19 @@ export function AiDebugAssistantDiagram() {
         y={245}
         w={140}
         h={64}
-        label="Vision endpoint"
+        label="Vision API"
         sublabel="screenshot RCA"
         accent="violet"
         iconPath={ICONS.sparkles}
       />
 
-      {/* Edges — request flow */}
-      <DEdge d="M175 154 L 175 185" accent="brand" speed="fast" />
-      <DEdge d="M300 217 L 370 217" accent="emerald" label="logs" labelX={335} labelY={205} />
-      <DEdge d="M300 250 C 330 250, 350 290, 370 305" accent="emerald" />
-      <DEdge d="M175 249 L 175 280" accent="brand" />
-      <DEdge d="M580 217 C 605 217, 615 185, 630 185" accent="violet" label="prompt" labelX={605} labelY={170} />
-      <DEdge d="M580 305 C 605 305, 615 275, 630 275" accent="violet" label="image" labelX={605} labelY={290} />
+      {/* 4. Edge labels (always on top, dropped into the gaps between boxes) */}
+      <DEdgeLabel x={335} y={217} text="logs" accent="emerald" />
+      <DEdgeLabel x={605} y={170} text="prompt" accent="violet" />
+      <DEdgeLabel x={605} y={300} text="image" accent="violet" />
+      <DEdgeLabel x={420} y={50} text="root cause" accent="violet" />
 
-      {/* Response back */}
-      <DEdge
-        d="M630 200 C 615 130, 320 110, 175 110"
-        accent="violet"
-        speed="slow"
-        label="root cause"
-        labelX={400}
-        labelY={100}
-      />
-
-      {/* Incident creation */}
-      <DEdge d="M175 344 L 175 375" accent="emerald" />
-
-      {/* Step numbers */}
+      {/* Step numbers (also on top) */}
       <DCaption text="1" x={45} y={80} fill="#3b8ff6" fontSize={11} />
       <DCaption text="2" x={365} y={175} fill="#10b981" fontSize={11} />
       <DCaption text="3" x={625} y={140} fill="#a78bfa" fontSize={11} />

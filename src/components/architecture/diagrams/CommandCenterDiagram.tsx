@@ -1,20 +1,9 @@
-import { DCaption, DEdge, DLane, DNode, DiagramFrame, ICONS } from '../primitives';
+import { DCaption, DEdge, DEdgeLabel, DLane, DNode, DiagramFrame, ICONS } from '../primitives';
 
 /**
  * SFDC Command Center — full sprint-execution platform.
  *
- *   User / Webex                       (left)
- *     │
- *     ▼
- *   LWR-hosted React UI               (top middle, inside Salesforce)
- *     │
- *     ▼
- *   Apex orchestrator                 (centre)
- *     ├─► Tooling / REST API          (right top)     ─► Org metadata
- *     ├─► Cisco Circuit LLM router    (right middle)  ─► tier router
- *     └─► Firestore prompt registry   (right bottom)  ─► versioned prompts
- *
- *   Playwright agentic test runner    (bottom)
+ * Layer order: lanes → edges (under nodes) → nodes → labels (on top).
  */
 export function CommandCenterDiagram() {
   return (
@@ -29,19 +18,42 @@ export function CommandCenterDiagram() {
         </p>
       }
     >
-      {/* Trust boundary lanes */}
+      {/* 1. Lanes */}
       <DLane x={20} y={40} w={310} h={420} title="User entry" accent="cyan" />
       <DLane x={345} y={40} w={250} h={420} title="Salesforce LWR (org)" accent="brand" />
       <DLane x={610} y={40} w={170} h={420} title="External services" accent="violet" align="right" />
 
-      {/* User/Webex */}
+      {/* 2. Edges */}
+      {/* User entry -> LWR React UI */}
+      <DEdge d="M255 112 L 365 112" accent="cyan" />
+      {/* Webex Bot -> Apex Orchestrator */}
+      <DEdge d="M255 202 C 305 202, 320 232, 365 232" accent="cyan" />
+
+      {/* LWR React UI -> Apex Orchestrator */}
+      <DEdge d="M470 144 L 470 210" accent="brand" speed="fast" />
+
+      {/* Orchestrator -> external services */}
+      <DEdge d="M575 220 C 600 215, 605 115, 620 112" accent="violet" />
+      <DEdge d="M575 245 L 620 245" accent="violet" />
+      <DEdge d="M575 270 C 600 275, 605 365, 620 366" accent="violet" />
+
+      {/* Orchestrator -> generated PR */}
+      <DEdge d="M470 280 L 470 335" accent="brand" speed="fast" />
+
+      {/* PR -> Playwright */}
+      <DEdge d="M365 367 C 320 367, 290 332, 255 332" accent="emerald" />
+      {/* Playwright -> Webex Bot (report back) */}
+      <DEdge d="M150 300 L 150 234" accent="emerald" />
+
+      {/* 3. Nodes */}
+      {/* User entry column */}
       <DNode
         x={45}
         y={80}
         w={210}
         h={64}
         label="Developer"
-        sublabel="@bot enhance story #1234"
+        sublabel="@bot enhance #1234"
         accent="cyan"
         iconPath={ICONS.user}
       />
@@ -51,7 +63,7 @@ export function CommandCenterDiagram() {
         w={210}
         h={64}
         label="Webex Bot"
-        sublabel="prod / sandbox session split"
+        sublabel="prod / sandbox split"
         accent="cyan"
         iconPath={ICONS.bot}
       />
@@ -61,12 +73,12 @@ export function CommandCenterDiagram() {
         w={210}
         h={64}
         label="Playwright Runner"
-        sublabel="UI / backend classification"
+        sublabel="UI / backend tests"
         accent="emerald"
         iconPath={ICONS.gauge}
       />
 
-      {/* LWR React UI */}
+      {/* Salesforce column */}
       <DNode
         x={365}
         y={80}
@@ -78,8 +90,6 @@ export function CommandCenterDiagram() {
         iconPath={ICONS.layers}
         pulse
       />
-
-      {/* Apex orchestrator */}
       <DNode
         x={365}
         y={210}
@@ -90,20 +100,18 @@ export function CommandCenterDiagram() {
         accent="brand"
         iconPath={ICONS.workflow}
       />
-
-      {/* Code-gen + PR sink */}
       <DNode
         x={365}
         y={335}
         w={210}
         h={64}
         label="Generated PR"
-        sublabel="Apex · LWC · tests · docs"
+        sublabel="Apex · LWC · tests"
         accent="brand"
         iconPath={ICONS.pr}
       />
 
-      {/* External services */}
+      {/* External services column */}
       <DNode
         x={620}
         y={80}
@@ -136,76 +144,19 @@ export function CommandCenterDiagram() {
         iconPath={ICONS.database}
       />
 
-      {/* Edges — entry */}
-      <DEdge
-        d="M255 112 C 290 112, 305 112, 365 112"
-        accent="cyan"
-        label="story"
-        labelX={310}
-        labelY={100}
-      />
-      <DEdge
-        d="M255 202 C 305 202, 320 202, 365 232"
-        accent="cyan"
-      />
-
-      {/* UI -> Orchestrator */}
-      <DEdge
-        d="M470 144 L 470 210"
-        accent="brand"
-        speed="fast"
-      />
-
-      {/* Orchestrator -> external */}
-      <DEdge
-        d="M575 230 C 600 220, 605 120, 620 112"
-        accent="violet"
-        label="metadata"
-        labelX={620}
-        labelY={170}
-      />
-      <DEdge
-        d="M575 245 L 620 245"
-        accent="violet"
-        label="prompt"
-        labelX={598}
-        labelY={232}
-      />
-      <DEdge
-        d="M575 260 C 600 270, 605 360, 620 366"
-        accent="violet"
-      />
-
-      {/* Orchestrator -> generated PR */}
-      <DEdge
-        d="M470 280 L 470 335"
-        accent="brand"
-        speed="fast"
-      />
-
-      {/* PR -> Playwright validation */}
-      <DEdge
-        d="M365 367 C 320 367, 290 332, 255 332"
-        accent="emerald"
-        label="run e2e"
-        labelX={310}
-        labelY={355}
-      />
-      <DEdge
-        d="M150 300 L 150 235"
-        accent="emerald"
-        bidir={false}
-        label="report"
-        labelX={150}
-        labelY={268}
-      />
+      {/* 4. Labels — placed in clear zones between boxes */}
+      <DEdgeLabel x={310} y={112} text="story" accent="cyan" />
+      <DEdgeLabel x={597} y={170} text="metadata" accent="violet" />
+      <DEdgeLabel x={598} y={245} text="prompt" accent="violet" />
+      <DEdgeLabel x={310} y={355} text="run e2e" accent="emerald" />
+      <DEdgeLabel x={150} y={268} text="report" accent="emerald" />
 
       {/* Step numbers */}
       <DCaption text="1" x={272} y={104} fill="#22d3ee" fontSize={11} />
       <DCaption text="2" x={478} y={184} fill="#3b8ff6" fontSize={11} />
       <DCaption text="3" x={597} y={205} fill="#a78bfa" fontSize={11} />
       <DCaption text="4" x={478} y={320} fill="#3b8ff6" fontSize={11} />
-      <DCaption text="5" x={272} y={355} fill="#10b981" fontSize={11} />
+      <DCaption text="5" x={272} y={395} fill="#10b981" fontSize={11} />
     </DiagramFrame>
   );
 }

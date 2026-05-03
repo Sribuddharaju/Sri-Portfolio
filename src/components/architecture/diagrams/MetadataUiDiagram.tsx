@@ -1,4 +1,4 @@
-import { DCaption, DEdge, DLane, DNode, DiagramFrame, ICONS } from '../primitives';
+import { DCaption, DEdge, DEdgeLabel, DLane, DNode, DiagramFrame, ICONS } from '../primitives';
 
 /**
  * Metadata-Driven Opportunity UI.
@@ -20,10 +20,28 @@ export function MetadataUiDiagram() {
         </p>
       }
     >
+      {/* 1. Lanes */}
       <DLane x={20} y={40} w={300} h={420} title="Metadata source of truth" accent="violet" />
       <DLane x={335} y={40} w={250} h={420} title="Apex evaluator" accent="brand" />
       <DLane x={605} y={40} w={175} h={420} title="UI shell" accent="emerald" />
 
+      {/* 2. Edges */}
+      {/* CMDT → Apex Service / Formula Evaluator / Wrapper builder */}
+      <DEdge d="M290 120 C 320 120, 330 145, 355 162" accent="violet" />
+      <DEdge d="M290 200 C 320 200, 330 225, 355 245" accent="violet" />
+      <DEdge d="M290 280 C 320 280, 330 260, 355 252" accent="violet" />
+      <DEdge d="M290 360 C 320 360, 330 290, 355 273" accent="violet" />
+
+      {/* Apex internal flow */}
+      <DEdge d="M460 194 L 460 210" accent="brand" speed="fast" />
+      <DEdge d="M460 280 L 460 295" accent="brand" speed="fast" />
+
+      {/* Apex → UI */}
+      <DEdge d="M565 162 L 620 160" accent="emerald" />
+      <DEdge d="M565 245 L 620 245" accent="emerald" />
+      <DEdge d="M565 327 L 620 325" accent="emerald" />
+
+      {/* 3. Nodes */}
       {/* CMDT records */}
       <DNode
         x={50}
@@ -51,7 +69,7 @@ export function MetadataUiDiagram() {
         w={240}
         h={60}
         label="Action CMDT"
-        sublabel="buttons · headers · stages"
+        sublabel="buttons · headers"
         accent="violet"
         iconPath={ICONS.cog}
       />
@@ -84,7 +102,7 @@ export function MetadataUiDiagram() {
         w={210}
         h={70}
         label="Formula Evaluator"
-        sublabel="AND · OR · ISPICKVAL · ISBLANK"
+        sublabel="AND · OR · ISPICKVAL"
         accent="brand"
         iconPath={ICONS.brain}
         pulse
@@ -133,23 +151,12 @@ export function MetadataUiDiagram() {
         iconPath={ICONS.user}
       />
 
-      {/* Edges into evaluator */}
-      <DEdge d="M290 120 C 320 120, 330 145, 355 158" accent="violet" />
-      <DEdge d="M290 200 C 320 200, 330 215, 355 240" accent="violet" />
-      <DEdge d="M290 280 C 320 280, 330 270, 355 252" accent="violet" />
-      <DEdge d="M290 360 C 320 360, 330 290, 355 273" accent="violet" />
+      {/* 4. Labels */}
+      <DEdgeLabel x={593} y={148} text="layout" accent="emerald" />
+      <DEdgeLabel x={593} y={233} text="rules" accent="emerald" />
 
-      {/* Apex internal flow */}
-      <DEdge d="M460 194 L 460 210" accent="brand" speed="fast" />
-      <DEdge d="M460 280 L 460 295" accent="brand" speed="fast" />
-
-      {/* Apex → UI */}
-      <DEdge d="M565 162 L 620 160" accent="emerald" label="layout" labelX={593} labelY={148} />
-      <DEdge d="M565 245 L 620 245" accent="emerald" label="rules" labelX={593} labelY={233} />
-      <DEdge d="M565 327 L 620 325" accent="emerald" />
-
-      <DCaption text="100+ records" x={170} y={60} textAnchor="middle" fill="#a78bfa" />
-      <DCaption text="< 200 ms / page" x={460} y={400} textAnchor="middle" fill="#3b8ff6" />
+      <DCaption text="100+ records" x={170} y={70} textAnchor="middle" fill="#a78bfa" />
+      <DCaption text="< 200 ms / page" x={460} y={395} textAnchor="middle" fill="#3b8ff6" />
     </DiagramFrame>
   );
 }

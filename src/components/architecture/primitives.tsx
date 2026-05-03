@@ -277,12 +277,14 @@ interface EdgeProps {
   dashed?: boolean;
   /** Slow the flow animation; default is 1.6s per cycle. */
   speed?: 'fast' | 'normal' | 'slow';
-  /** Optional label rendered along the path's midpoint. */
-  label?: string;
-  labelX?: number;
-  labelY?: number;
 }
 
+/**
+ * A connection line. Render this BEFORE node groups so the line passes
+ * underneath any boxes it crosses — the box visually masks the segment.
+ * Labels are intentionally NOT supported here; use <DEdgeLabel /> in a
+ * separate render pass after nodes so the badge always sits on top.
+ */
 export function DEdge({
   d,
   accent = 'brand',
@@ -291,9 +293,6 @@ export function DEdge({
   bidir = false,
   dashed = false,
   speed = 'normal',
-  label,
-  labelX,
-  labelY,
 }: EdgeProps) {
   const reduced = useReducedMotion();
   const dur = speed === 'fast' ? 1.0 : speed === 'slow' ? 2.6 : 1.6;
@@ -334,32 +333,55 @@ export function DEdge({
           />
         </path>
       )}
+    </g>
+  );
+}
 
-      {label && labelX != null && labelY != null && (
-        <g>
-          <rect
-            x={labelX - 38}
-            y={labelY - 11}
-            width={76}
-            height={22}
-            rx={11}
-            fill="rgba(15,23,42,0.9)"
-            stroke={ACCENT_FROM[accent]}
-            strokeOpacity={0.4}
-          />
-          <text
-            x={labelX}
-            y={labelY + 1}
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fontFamily="JetBrains Mono, ui-monospace, monospace"
-            fontSize={10}
-            fill="#cbd5f5"
-          >
-            {label}
-          </text>
-        </g>
-      )}
+interface EdgeLabelProps {
+  x: number;
+  y: number;
+  text: string;
+  accent?: Accent;
+  /** Horizontal half-width of the badge. Auto-sized for short text. */
+  pad?: number;
+}
+
+/**
+ * Pill-shaped label drawn on top of an edge line. Render this AFTER
+ * nodes so it sits at the very top of the z-stack and never gets hidden
+ * by a box edge or another line crossing.
+ *
+ * Place the (x, y) anchor in a CLEAR ZONE between boxes — never on a box
+ * edge. The badge auto-widens to fit short strings (3–14 chars).
+ */
+export function DEdgeLabel({ x, y, text, accent = 'brand', pad }: EdgeLabelProps) {
+  // Approximate the rendered width of the JetBrains Mono 10px text.
+  const w = pad ?? Math.max(34, text.length * 6.4 + 16);
+  const h = 20;
+  return (
+    <g>
+      <rect
+        x={x - w / 2}
+        y={y - h / 2}
+        width={w}
+        height={h}
+        rx={h / 2}
+        fill="rgba(6,9,26,0.95)"
+        stroke={ACCENT_FROM[accent]}
+        strokeOpacity={0.55}
+        strokeWidth={1}
+      />
+      <text
+        x={x}
+        y={y + 1}
+        textAnchor="middle"
+        dominantBaseline="middle"
+        fontFamily="JetBrains Mono, ui-monospace, monospace"
+        fontSize={10}
+        fill="#e5edff"
+      >
+        {text}
+      </text>
     </g>
   );
 }

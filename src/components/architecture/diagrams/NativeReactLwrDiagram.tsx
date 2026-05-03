@@ -1,4 +1,4 @@
-import { DCaption, DEdge, DLane, DNode, DiagramFrame, ICONS } from '../primitives';
+import { DCaption, DEdge, DEdgeLabel, DLane, DNode, DiagramFrame, ICONS } from '../primitives';
 
 /**
  * Native React app shipped through Salesforce LWR.
@@ -19,10 +19,28 @@ export function NativeReactLwrDiagram() {
         </p>
       }
     >
+      {/* 1. Lanes */}
       <DLane x={20} y={40} w={320} h={420} title="Build pipeline · SFDX" accent="cyan" />
       <DLane x={355} y={40} w={425} h={420} title="Runtime · Salesforce LWR" accent="brand" />
 
-      {/* Build column */}
+      {/* 2. Edges */}
+      {/* Build column (vertical chain) */}
+      <DEdge d="M185 144 L 185 170" accent="cyan" speed="fast" />
+      <DEdge d="M185 234 L 185 260" accent="cyan" speed="fast" />
+      <DEdge d="M185 324 L 185 350" accent="cyan" speed="fast" />
+
+      {/* Build → Runtime: route around the runtime stack via the
+          space between the LWR Site box (top) and the lane edge. */}
+      <DEdge d="M320 380 C 360 380, 360 60, 567 60 L 567 80" accent="cyan" />
+
+      {/* Runtime column */}
+      <DEdge d="M567 144 L 470 170" accent="brand" />
+      <DEdge d="M567 144 L 665 170" accent="brand" />
+      <DEdge d="M470 234 L 470 260" accent="brand" speed="fast" />
+      <DEdge d="M665 234 L 665 260" accent="brand" speed="fast" />
+      <DEdge d="M567 324 L 567 350" accent="emerald" speed="fast" />
+
+      {/* 3. Nodes — Build column */}
       <DNode
         x={50}
         y={80}
@@ -65,7 +83,7 @@ export function NativeReactLwrDiagram() {
         iconPath={ICONS.workflow}
       />
 
-      {/* Runtime column */}
+      {/* Nodes — Runtime column */}
       <DNode
         x={385}
         y={80}
@@ -118,26 +136,8 @@ export function NativeReactLwrDiagram() {
         iconPath={ICONS.shield}
       />
 
-      {/* Build edges */}
-      <DEdge d="M185 144 L 185 170" accent="cyan" speed="fast" />
-      <DEdge d="M185 234 L 185 260" accent="cyan" speed="fast" />
-      <DEdge d="M185 324 L 185 350" accent="cyan" speed="fast" />
-
-      {/* Build → Runtime */}
-      <DEdge
-        d="M320 380 C 355 380, 370 110, 385 110"
-        accent="cyan"
-        label="deploy"
-        labelX={388}
-        labelY={232}
-      />
-
-      {/* Runtime edges */}
-      <DEdge d="M567 144 L 470 170" accent="brand" />
-      <DEdge d="M567 144 L 665 170" accent="brand" />
-      <DEdge d="M470 234 L 470 260" accent="brand" speed="fast" />
-      <DEdge d="M665 234 L 665 260" accent="brand" speed="fast" />
-      <DEdge d="M567 324 L 567 350" accent="emerald" speed="fast" />
+      {/* 4. Labels */}
+      <DEdgeLabel x={400} y={60} text="deploy" accent="cyan" />
 
       {/* Step indicators */}
       <DCaption text="01" x={50} y={70} fill="#22d3ee" fontSize={10} />

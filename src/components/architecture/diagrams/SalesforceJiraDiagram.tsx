@@ -1,4 +1,4 @@
-import { DCaption, DEdge, DLane, DNode, DiagramFrame, ICONS } from '../primitives';
+import { DCaption, DEdge, DEdgeLabel, DLane, DNode, DiagramFrame, ICONS } from '../primitives';
 
 /**
  * Salesforce ↔ Jira bi-directional sync.
@@ -19,10 +19,24 @@ export function SalesforceJiraDiagram() {
         </p>
       }
     >
-      <DLane x={20} y={40} w={350} h={420} title="Salesforce" accent="brand" />
-      <DLane x={430} y={40} w={350} h={420} title="Jira Cloud" accent="pink" />
+      {/* 1. Lanes */}
+      <DLane x={20} y={40} w={350} h={400} title="Salesforce" accent="brand" />
+      <DLane x={430} y={40} w={350} h={400} title="Jira Cloud" accent="pink" />
 
-      {/* Salesforce */}
+      {/* 2. Edges */}
+      {/* Salesforce internal */}
+      <DEdge d="M195 152 L 195 185" accent="brand" speed="fast" />
+      <DEdge d="M195 352 L 195 385" accent="emerald" speed="fast" />
+
+      {/* Outbound (SF → Jira) */}
+      <DEdge d="M340 215 L 460 120" accent="brand" />
+      {/* Inbound (Jira webhook → SF Site endpoint) */}
+      <DEdge d="M460 320 L 340 320" accent="pink" />
+
+      {/* Audit (bidirectional, dashed, no flow shimmer) */}
+      <DEdge d="M340 412 L 460 412" accent="emerald" bidir flow={false} dashed arrow={false} />
+
+      {/* 3. Nodes */}
       <DNode
         x={50}
         y={90}
@@ -66,7 +80,6 @@ export function SalesforceJiraDiagram() {
         pulse
       />
 
-      {/* Jira */}
       <DNode
         x={460}
         y={90}
@@ -84,7 +97,7 @@ export function SalesforceJiraDiagram() {
         w={290}
         h={70}
         label="Jira REST API"
-        sublabel="POST /issue · /comment · transitions"
+        sublabel="POST /issue · /comment"
         accent="pink"
         iconPath={ICONS.cloud}
       />
@@ -109,39 +122,17 @@ export function SalesforceJiraDiagram() {
         iconPath={ICONS.search}
       />
 
-      {/* Salesforce internal */}
-      <DEdge d="M195 152 L 195 185" accent="brand" speed="fast" />
-      <DEdge d="M195 352 L 195 385" accent="emerald" speed="fast" />
+      {/* 4. Labels */}
+      <DEdgeLabel x={400} y={170} text="create" accent="brand" />
+      <DEdgeLabel x={400} y={310} text="webhook" accent="pink" />
 
-      {/* Outbound (SF → Jira) */}
-      <DEdge
-        d="M340 215 L 460 215"
-        accent="brand"
-        label="create / update"
-        labelX={400}
-        labelY={203}
+      <DCaption
+        text="200+ links / month · 99.5% sync reliability"
+        x={400}
+        y={465}
+        textAnchor="middle"
+        fill="#94a3b8"
       />
-      <DEdge
-        d="M460 120 C 410 120, 410 175, 340 195"
-        accent="pink"
-        flow={false}
-        dashed
-        arrow={false}
-      />
-
-      {/* Inbound (Jira → SF) */}
-      <DEdge
-        d="M460 320 L 340 320"
-        accent="pink"
-        label="webhook"
-        labelX={400}
-        labelY={308}
-      />
-
-      {/* Audit */}
-      <DEdge d="M340 410 L 460 410" accent="emerald" bidir flow={false} dashed arrow={false} />
-
-      <DCaption text="200+ links / month · 99.5% sync reliability" x={400} y={465} textAnchor="middle" fill="#94a3b8" />
     </DiagramFrame>
   );
 }

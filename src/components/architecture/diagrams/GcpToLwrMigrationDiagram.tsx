@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion';
-import { DCaption, DEdge, DLane, DNode, DiagramFrame, ICONS } from '../primitives';
+import { DCaption, DEdge, DEdgeLabel, DLane, DNode, DiagramFrame, ICONS } from '../primitives';
 
 /**
  * GCP → Salesforce LWR migration of the SFDC Command Center.
@@ -21,12 +21,23 @@ export function GcpToLwrMigrationDiagram() {
         </p>
       }
     >
-      {/* BEFORE column */}
-      <DLane x={20} y={40} w={350} h={420} title="BEFORE · GCP-hosted" accent="pink" />
-      {/* AFTER column */}
-      <DLane x={430} y={40} w={350} h={420} title="AFTER · Salesforce LWR" accent="emerald" />
+      {/* 1. Lanes */}
+      <DLane x={20} y={40} w={350} h={400} title="BEFORE · GCP-hosted" accent="pink" />
+      <DLane x={430} y={40} w={350} h={400} title="AFTER · Salesforce LWR" accent="emerald" />
 
-      {/* Before nodes */}
+      {/* 2. Edges — Before */}
+      <DEdge d="M180 118 L 210 118" accent="pink" />
+      <DEdge d="M180 146 C 200 146, 200 185, 195 185" accent="pink" />
+      <DEdge d="M195 251 L 195 290" accent="pink" speed="slow" />
+      <DEdge d="M180 318 L 210 318" accent="pink" />
+      <DEdge d="M195 346 L 195 385" accent="pink" />
+
+      {/* Edges — After */}
+      <DEdge d="M605 146 L 605 185" accent="emerald" speed="fast" />
+      <DEdge d="M605 251 L 605 290" accent="emerald" speed="fast" />
+      <DEdge d="M605 346 L 605 385" accent="emerald" />
+
+      {/* 3. Nodes — Before column */}
       <DNode
         x={50}
         y={90}
@@ -88,14 +99,7 @@ export function GcpToLwrMigrationDiagram() {
         iconPath={ICONS.filecode}
       />
 
-      {/* Edges — Before */}
-      <DEdge d="M180 118 L 210 118" accent="pink" />
-      <DEdge d="M180 146 C 200 146, 200 185, 195 185" accent="pink" />
-      <DEdge d="M195 251 L 195 290" accent="pink" speed="slow" />
-      <DEdge d="M180 318 L 210 318" accent="pink" label="x-cloud" labelX={195} labelY={306} />
-      <DEdge d="M195 346 L 195 385" accent="pink" />
-
-      {/* After nodes */}
+      {/* Nodes — After column */}
       <DNode
         x={460}
         y={90}
@@ -138,19 +142,14 @@ export function GcpToLwrMigrationDiagram() {
         iconPath={ICONS.filecode}
       />
 
-      {/* Edges — After */}
-      <DEdge d="M605 146 L 605 185" accent="emerald" speed="fast" />
-      <DEdge d="M605 251 L 605 290" accent="emerald" speed="fast" />
-      <DEdge d="M605 346 L 605 385" accent="emerald" />
-
-      {/* Migration arrow between columns */}
+      {/* Migration arrow between columns (rendered above lanes/edges, below labels) */}
       <g>
         <path
-          d="M385 250 C 410 250, 420 250, 445 250"
+          d="M385 250 L 425 250"
           fill="none"
           stroke="#22d3ee"
-          strokeWidth={2}
-          strokeOpacity={0.85}
+          strokeWidth={2.4}
+          strokeOpacity={0.95}
           markerEnd="url(#arrow)"
         />
         {!reduced && (
@@ -158,7 +157,7 @@ export function GcpToLwrMigrationDiagram() {
             r={6}
             fill="#22d3ee"
             initial={{ cx: 385, cy: 250 }}
-            animate={{ cx: 445, cy: 250 }}
+            animate={{ cx: 425, cy: 250 }}
             transition={{
               duration: 1.4,
               ease: 'easeInOut',
@@ -168,12 +167,19 @@ export function GcpToLwrMigrationDiagram() {
           />
         )}
       </g>
-      <DCaption text="MIGRATE" x={415} y={234} textAnchor="middle" fontSize={10} fill="#22d3ee" />
+
+      {/* 4. Labels */}
+      <DEdgeLabel x={195} y={306} text="x-cloud" accent="pink" />
+      <DEdgeLabel x={400} y={228} text="MIGRATE" accent="cyan" />
 
       {/* Wins callout */}
-      <g transform="translate(20, 470)">
-        <DCaption text="−55% infra cost · −42% p95 latency · 2× release cadence · cross-cloud auth eliminated" x={0} y={-2} fill="#94a3b8" />
-      </g>
+      <DCaption
+        text="−55% infra cost · −42% p95 latency · 2× release cadence · cross-cloud auth eliminated"
+        x={400}
+        y={465}
+        textAnchor="middle"
+        fill="#94a3b8"
+      />
     </DiagramFrame>
   );
 }
